@@ -9,7 +9,7 @@ object Tokenizer {
         c +: t.takeWhile(_.isLetter) :: tokenize(t.dropWhile(_.isLetter))
       } else if (c.isDigit) {
         c +: t.takeWhile(_.isDigit) :: tokenize(t.dropWhile(_.isDigit))
-      } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
+      } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '=') {
         c.toString :: tokenize(t)
       } else if (c.isSpaceChar) {
         tokenize(t.dropWhile(_.isSpaceChar))

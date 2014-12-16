@@ -3,6 +3,7 @@ abstract class Expr{
   def vars() :Array[String] = this match {
     case Val(d) => Array()
     case Var(s) => Array(s)
+    case Ass(n, e) => n +: e.vars()
     case Sum(l, r) => l.vars().union(r.vars())
     case Sub(l, r) => l.vars().union(r.vars())
     case Mul(l, r) => l.vars().union(r.vars())
@@ -44,4 +45,7 @@ case class Div(l: Expr, r:Expr) extends Expr {
 }
 case class Mod(l: Expr, r:Expr) extends Expr {
   override def toString = "(" + r.toString + " % " + l.toString + ")"
+}
+case class Ass(n: String, r:Expr) extends Expr {
+  override def toString = "(" + n + " = " + r.toString+")"
 }
