@@ -1,28 +1,27 @@
-type Valuation = Map[String, Double]
-
-abstract class Expr
-
-def vars(e :Expr) :Array[String] = e match {
-  case Val(d) => Array()
-  case Var(s) => Array(s)
-  case Sum(l, r) => vars(l).union(vars(r))
-  case Sub(l, r) => vars(l).union(vars(r))
-  case Mul(l, r) => vars(l).union(vars(r))
-  case Div(l, r) => vars(l).union(vars(r))
-  case Mod(l, r) => vars(l).union(vars(r))
-}
-
-def eval (e:Expr, v :Valuation) :Double = e match {
-  case Val(d) => d
-  case Var(s) => v.get(s) match {
-    case Some(r) => r
-    case _       => sys.error("Variable " + s + "Not found!")
+abstract class Expr{
+  type Valuation = Map[String, Double]
+  def vars() :Array[String] = this match {
+    case Val(d) => Array()
+    case Var(s) => Array(s)
+    case Sum(l, r) => l.vars().union(r.vars())
+    case Sub(l, r) => l.vars().union(r.vars())
+    case Mul(l, r) => l.vars().union(r.vars())
+    case Div(l, r) => l.vars().union(r.vars())
+    case Mod(l, r) => l.vars().union(r.vars())
   }
-  case Sum(l, r) => eval(l, v) + eval(r, v)
-  case Sub(l, r) => eval(l, v) - eval(r, v)
-  case Mul(l, r) => eval(l, v) * eval(r, v)
-  case Div(l, r) => eval(l, v) / eval(r, v)
-  case Mod(l, r) => eval(l, v) % eval(r, v)
+
+  def eval (v :Valuation) :Double = this match {
+    case Val(d) => d
+    case Var(s) => v.get(s) match {
+      case Some(r) => r
+      case _       => sys.error("Variable " + s + "Not found!")
+    }
+    case Sum(l, r) => l.eval(v) + r.eval(v)
+    case Sub(l, r) => l.eval(v) - r.eval(v)
+    case Mul(l, r) => l.eval(v) * r.eval(v)
+    case Div(l, r) => l.eval(v) / r.eval(v)
+    case Mod(l, r) => l.eval(v) % r.eval(v)
+  }
 }
 
 case class Val(d: Double) extends Expr {
