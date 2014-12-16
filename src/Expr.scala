@@ -14,7 +14,7 @@ abstract class Expr{
     case Val(d) => d
     case Var(s) => v.get(s) match {
       case Some(r) => r
-      case _       => sys.error("Variable " + s + "Not found!")
+      case _       => sys.error("Variable '" + s + "' not found!")
     }
     case Sum(l, r) => l.eval(v) + r.eval(v)
     case Sub(l, r) => l.eval(v) - r.eval(v)
