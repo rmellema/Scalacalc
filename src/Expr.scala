@@ -32,19 +32,19 @@ case class Var(s: String) extends Expr {
   override def toString = s
 }
 case class Sum(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + r.toString + " + " + l.toString + ")"
+  override def toString = "(" + l.toString + " + " + r.toString + ")"
 }
 case class Sub(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + r.toString + " - " + l.toString + ")"
+  override def toString = "(" + l.toString + " - " + r.toString + ")"
 }
 case class Mul(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + r.toString + " * " + l.toString + ")"
+  override def toString = "(" + l.toString + " * " + r.toString + ")"
 }
 case class Div(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + r.toString + " / " + l.toString + ")"
+  override def toString = "(" + l.toString + " / " + r.toString + ")"
 }
 case class Mod(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + r.toString + " % " + l.toString + ")"
+  override def toString = "(" + l.toString + " % " + r.toString + ")"
 }
 case class Ass(n: String, r:Expr) extends Expr {
   override def toString = "(" + n + " = " + r.toString+")"
