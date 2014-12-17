@@ -7,8 +7,8 @@ object Tokenizer {
       val t = s.tail
       if (c.isLetter) {
         c +: t.takeWhile(_.isLetter) :: tokenize(t.dropWhile(_.isLetter))
-      } else if (c.isDigit) {
-        c +: t.takeWhile(_.isDigit) :: tokenize(t.dropWhile(_.isDigit))
+      } else if (c.isDigit || c == '.') {
+        c +: t.takeWhile((c) => c.isDigit || c == '.') :: tokenize(t.dropWhile((c) => c.isDigit || c == '.'))
       } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '=') {
         c.toString :: tokenize(t)
       } else if (c.isSpaceChar) {
