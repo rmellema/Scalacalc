@@ -27,6 +27,10 @@ object Parser {
         case "%" => parseT(Mod(e, r._1), r._2)
         case "+" => Sum(e, parseT(r._1, r._2))
         case "-" => Sub(e, parseT(r._1, r._2))
+        case "=" => e match {
+          case Var(n) => Ass(n, parseT(r._1, r._2))
+          case _      => sys.error("Trying to assign to something that is not a variable")
+        }
       }
     }
   }
