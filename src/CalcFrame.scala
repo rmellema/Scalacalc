@@ -32,6 +32,7 @@ object CalcFrame extends JFrame with ActionListener {
     add(scroll, BorderLayout.CENTER)
     textField.addActionListener(this)
     add(textField, BorderLayout.SOUTH)
+    pack()
     setVisible(true)
   }
 
