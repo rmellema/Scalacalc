@@ -30,7 +30,7 @@ class CalcRepl(read: (String => String), write: (String => Unit)) {
   }
 
   def run(): Unit = {
-    run(Map[String, Double]())
+    run(Map("e" -> math.E, "pi" -> math.Pi))
   }
 
 }
