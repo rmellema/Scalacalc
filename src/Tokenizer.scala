@@ -1,7 +1,7 @@
 object Tokenizer {
   def tokenize(s: String): List[String] = {
     if (s.isEmpty) {
-      List()
+      List.empty[String]
     } else {
       val c: Char = s.head
       val t = s.tail

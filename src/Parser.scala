@@ -2,7 +2,7 @@ object Parser {
   private def subExpression(d: Int, s: List[String]): List[String] = {
     if (s.head == ")") {
       if (d < 1) {
-        List()
+        List.empty[String]
       } else {
         s.head +: subExpression(d - 1, s.tail)
       }
@@ -46,7 +46,7 @@ object Parser {
       val sub: List[String] = subExpression(t)
       (parse(sub), t.drop(sub.length + 1))
     } else {
-      (Val(0.0), List())
+      (Val(0.0), List.empty[String])
     }
   }
 
