@@ -19,7 +19,7 @@ class CalcRepl(read: (String => String), write: (String => Unit)) {
       }
       write(res.toString)
     } catch {
-      case e: Exception => println(e.getMessage)
+      case e: Exception => write(e.getMessage)
     }
 
     run(newV)
