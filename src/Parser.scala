@@ -1,20 +1,23 @@
+import scala.annotation.tailrec
+
 object Parser {
-  private def subExpression(d: Int, s: List[String]): List[String] = {
+  @tailrec
+  private def subExpression(d: Int, s: List[String], acc: List[String]): List[String] = {
     if (s.head == ")") {
       if (d < 1) {
-        List.empty[String]
+        acc
       } else {
-        s.head +: subExpression(d - 1, s.tail)
+        subExpression(d - 1, s.tail, s.head +: acc)
       }
     } else if (s.head == "(") {
-      s.head +: subExpression(d + 1, s.tail)
+      subExpression(d + 1, s.tail, s.head +: acc)
     } else {
-      s.head +: subExpression(d, s.tail)
+      subExpression(d, s.tail, s.head +: acc)
     }
   }
 
   def subExpression(s: List[String]): List[String]
-                = subExpression(0, s)
+                = subExpression(0, s, List.empty[String]).reverse
 
   def parseT(e: Expr, s: List[String]): Expr = {
     if (s.isEmpty) {
