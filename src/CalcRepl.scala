@@ -5,10 +5,6 @@ class CalcRepl(read: (String => String), write: (String => Unit)) {
   final def run(v: Map[String, Double]): Unit = {
     var newV = v
     var ln = read("> ")
-    if (ln == null) {
-      ln = ":quit"
-      write(ln)
-    }
     if (ln.take(2) == ":q") {
       return
     }
