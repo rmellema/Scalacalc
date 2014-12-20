@@ -37,7 +37,8 @@ object Parser {
   def parseF(s: List[String]): (Expr, List[String]) = {
     val h = s.head
     val t = s.tail
-    if      (h.head.isDigit)  (Val(Real(h.toDouble)), t)
+    if      (h.head.isDigit || h.head == '.')
+      (Val(if (h.indexOf('.') >= 0) Real(h.toDouble) else Integer(h.toInt)), t)
     else if (h.head.isLetter) (Var(h), t)
     else if (h == "(") {
       val sub: List[String] = subExpression(t)
