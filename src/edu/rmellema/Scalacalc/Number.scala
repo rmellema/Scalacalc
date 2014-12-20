@@ -28,32 +28,32 @@ abstract class Number {
 case class Integer(i: scala.Int) extends Number {
   override def unary_- = Integer(-i)
 
-  override def +(n: Number): Number = n match {
+  override def +(t: Number): Number = t match {
     case Integer (o)    => Integer(i + o)
     case Real    (r)    => Real(i + r)
     case Rational(n, d) => Rational(i * d + n, d)
   }
-  override def -(n: Number): Number = n match {
+  override def -(t: Number): Number = t match {
     case Integer (o)    => Integer(i - o)
     case Real    (r)    => Real(i - r)
     case Rational(n, d) => Rational(i * d - n, d)
   }
-  override def *(n: Number): Number = n match {
+  override def *(t: Number): Number = t match {
     case Integer(o) => Integer(i * o)
     case Real   (r) => Real(i * r)
     case Rational(n, d) => Rational(n * i, d).toNumber
   }
-  override def /(n: Number): Number = n match {
+  override def /(t: Number): Number = t match {
     case Integer(o) => Rational(i, o)
     case Real   (r) => Real(i / r).toNumber
     case Rational(n, d) => Rational(n, d * i)
   }
-  override def %(n: Number): Number = n match {
+  override def %(t: Number): Number = t match {
     case Integer(o) => Integer(i % o)
     case Real   (r) => Real(i % r)
     case Rational(n, d) => sys.error("Trying to % a Rational")
   }
-  override def ^(n: Number): Number = n match {
+  override def ^(t: Number): Number = t match {
     case Integer(o) => Integer(math.pow(i, o).toInt)
     case Real   (r) => Real(math.pow(i, r))
     case Rational(n, d) => Real(math.pow(i, n.toDouble / d))
@@ -68,29 +68,35 @@ case class Integer(i: scala.Int) extends Number {
 
 case class Real(d: scala.Double) extends Number {
   override def unary_- = Real(-d)
-  override def +(n: Number): Number = n match {
+  override def +(t: Number): Number = t match {
     case Integer(i) => Real(d + i)
     case Real(o)    => Real(d + o).toNumber
+    case Rational(_, _) => this + t.toReal
   }
-  override def -(n: Number): Number = n match {
+  override def -(t: Number): Number = t match {
     case Integer(i) => Real(d - i)
     case Real(o)    => Real(d - o).toNumber
+    case Rational(_, _) => this - t.toReal
   }
-  override def *(n: Number): Number = n match {
+  override def *(t: Number): Number = t match {
     case Integer(i) => Real(d * i).toNumber
     case Real(o)    => Real(d * o).toNumber
+    case Rational(_, _) => this * t.toReal
   }
-  override def /(n: Number): Number = n match {
+  override def /(t: Number): Number = t match {
     case Integer(i) => Real(d / i).toNumber
     case Real(o)    => Real(d / o).toNumber
+    case Rational(_, _) => this / t.toReal
   }
-  override def %(n: Number): Number = n match {
+  override def %(t: Number): Number = t match {
     case Integer(i) => Real(d % i).toNumber
     case Real(o)    => Real(d % o).toNumber
+    case Rational(_, _) => this % t.toReal
   }
-  override def ^(n: Number): Number = n match {
+  override def ^(t: Number): Number = t match {
     case Integer(i) => Real(math.pow(d, i)).toNumber
     case Real(o)    => Real(math.pow(d, o)).toNumber
+    case Rational(_, _) => this ^ t.toReal
   }
   override def toInteger  = Integer(d.toInt)
   override def toReal     = this
