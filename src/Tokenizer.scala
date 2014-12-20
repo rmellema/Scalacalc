@@ -8,17 +8,16 @@ object Tokenizer {
     } else {
       val c: Char = s.head
       val t = s.tail
-      if (c.isLetter) {
+      if (c.isLetter)
         tokenizeImpl(t.dropWhile(_.isLetter), c +: t.takeWhile(_.isLetter) :: acc)
-      } else if (c.isDigit || c == '.') {
+      else if (c.isDigit || c == '.')
         tokenizeImpl(t.dropWhile((c) => c.isDigit || c == '.'), c +: t.takeWhile((c) => c.isDigit || c == '.') :: acc)
-      } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '=' || c == '^') {
-        tokenizeImpl(t, c.toString :: acc)
-      } else if (c.isSpaceChar) {
+      else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '=' || c == '^')
+          tokenizeImpl(t, c.toString :: acc)
+      else if (c.isSpaceChar)
         tokenizeImpl(t.dropWhile(_.isSpaceChar), acc)
-      } else {
+      else
         sys.error("Illegal character '" + c + "' in input")
-      }
     }
   }
 

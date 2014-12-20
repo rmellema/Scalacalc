@@ -1,9 +1,7 @@
 abstract class Expr {
   type Valuation = Map[String, Double]
 
-  def apply(v: Valuation): Double = {
-    eval(v)
-  }
+  def apply(v: Valuation): Double = eval(v)
 
   def vars: Array[String]
 

@@ -9,10 +9,8 @@ object CalcCLI {
   }
 
   def run(calc: Calculator): Unit = {
-    var ln = read("> ")
-    if (ln.take(2) == ":q") {
-      return
-    }
+    val ln = read("> ")
+    if (ln.take(2) == ":q") return
 
     try {
       println(calc.evaluate(ln))
@@ -22,9 +20,7 @@ object CalcCLI {
     run(calc)
   }
 
-  def run(): Unit = {
-    run(new Calculator())
-  }
+  def run(): Unit = run(new Calculator())
 
   def main(args: Array[String]): Unit = {
     println("Welcome to Scalacalc!")

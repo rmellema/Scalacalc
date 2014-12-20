@@ -7,9 +7,7 @@ object CalcFrame extends JFrame with ActionListener {
   private val textField: JTextField = new JTextField(80)
   private val calc                  = new Calculator()
 
-  private def write(s: String): Unit = {
-    textArea.append(s + "\n")
-  }
+  private def write(s: String): Unit = textArea.append(s + "\n")
 
   override def actionPerformed(actionEvent: ActionEvent): Unit = {
     val ln = textField.getText
