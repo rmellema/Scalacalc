@@ -1,18 +1,18 @@
 package edu.rmellema.Scalacalc
 abstract class Expr {
-  type Valuation = Map[String, Double]
+  type Valuation = Map[String, Number]
 
-  def apply(v: Valuation): Double = eval(v)
+  def apply(v: Valuation): Number = eval(v)
 
   def vars: Array[String]
 
-  def eval(v: Valuation): Double
+  def eval(v: Valuation): Number
 }
 
-case class Val(d: Double) extends Expr {
-  override def toString = d.toString
+case class Val(n: Number) extends Expr {
+  override def toString = n.toString
   override def vars = Array()
-  override def eval(v:Valuation) = d
+  override def eval(v:Valuation) = n
 }
 case class Var(s: String) extends Expr {
   override def toString = s
@@ -45,7 +45,7 @@ case class Div(l: Expr, r:Expr) extends Expr {
 case class Pow(l: Expr, r: Expr) extends Expr {
   override def toString = "(" + l.toString + " ^ " + r.toString + ")"
   override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = math.pow(l.eval(v), r.eval(v))
+  override def eval(v: Valuation) = l.eval(v) ^ r.eval(v)
 }
 case class Mod(l: Expr, r:Expr) extends Expr {
   override def toString = "(" + l.toString + " % " + r.toString + ")"

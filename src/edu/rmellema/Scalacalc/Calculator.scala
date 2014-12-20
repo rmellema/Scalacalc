@@ -1,8 +1,8 @@
 package edu.rmellema.Scalacalc
 class Calculator {
-  private var v = Map("e" -> math.E, "pi" -> math.Pi)
+  private var v: Map[String, Number] = Map("e" -> Real(math.E), "pi" -> Real(math.Pi))
 
-  def evaluate(ln: String): Double = {
+  def evaluate(ln: String): Number = {
     val res = Parser parse ln match {
       case Ass(n, e) =>
         val r = e(v)

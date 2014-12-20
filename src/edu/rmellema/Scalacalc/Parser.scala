@@ -37,19 +37,19 @@ object Parser {
   def parseF(s: List[String]): (Expr, List[String]) = {
     val h = s.head
     val t = s.tail
-    if      (h.head.isDigit)  (Val(h.toDouble), t)
+    if      (h.head.isDigit)  (Val(Real(h.toDouble)), t)
     else if (h.head.isLetter) (Var(h), t)
     else if (h == "(") {
       val sub: List[String] = subExpression(t)
       (parse(sub), t.drop(sub.length + 1))
     } else {
-      if (h == "-" & t.head.head.isDigit) (Val(-t.head.toDouble), t.tail)
+      if (h == "-" & t.head.head.isDigit) (Val(-Real(t.head.toDouble)), t.tail)
       else sys.error("Unexpected token: '" + h + "'")
     }
   }
 
   def parse(s: List[String]): Expr = {
-    if (s.isEmpty) Val(0.0)
+    if (s.isEmpty) Val(Integer(0))
     else {
       val l = parseF(s)
       parseT(l._1, l._2)
