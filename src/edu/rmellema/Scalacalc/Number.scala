@@ -6,6 +6,7 @@ abstract class Number {
 
   def toString : String
 
+  def unary_- : Number
   def +(o: Number): Number
   def -(o: Number): Number
   def *(o: Number): Number
@@ -15,6 +16,8 @@ abstract class Number {
 }
 
 case class Integer(i: scala.Int) extends Number {
+  override def unary_- = Integer(-i)
+
   override def +(n: Number) = {
     case Integer(o) => Integer(i + o)
     case Real   (r) => Real(i + r)
@@ -47,6 +50,7 @@ case class Integer(i: scala.Int) extends Number {
 }
 
 case class Real(d: scala.Double) extends Number {
+  override def unary_- = Real(-d)
   override def +(n: Number) = {
     case Integer(i) => Real(d + i)
     case Real(o)    => Real(d + o)
