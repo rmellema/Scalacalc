@@ -18,27 +18,27 @@ abstract class Number {
 case class Integer(i: scala.Int) extends Number {
   override def unary_- = Integer(-i)
 
-  override def +(n: Number) = {
+  override def +(n: Number): Number = n match {
     case Integer(o) => Integer(i + o)
     case Real   (r) => Real(i + r)
   }
-  override def -(n: Number) = {
+  override def -(n: Number): Number = n match {
     case Integer(o) => Integer(i - o)
     case Real   (r) => Real(i - r)
   }
-  override def *(n: Number) = {
+  override def *(n: Number): Number = n match {
     case Integer(o) => Integer(i * o)
     case Real   (r) => Real(i * r)
   }
-  override def /(n: Number) = {
+  override def /(n: Number): Number = n match {
     case Integer(o) => Integer(i / o)
     case Real   (r) => Real(i / r)
   }
-  override def %(n: Number) = {
+  override def %(n: Number): Number = n match {
     case Integer(o) => Integer(i % o)
     case Real   (r) => Real(i % r)
   }
-  override def ^(n: Number) = {
+  override def ^(n: Number): Number = n match {
     case Integer(o) => Integer(i ^ o)
     case Real   (r) => Real(math.pow(i, r))
   }
@@ -51,27 +51,27 @@ case class Integer(i: scala.Int) extends Number {
 
 case class Real(d: scala.Double) extends Number {
   override def unary_- = Real(-d)
-  override def +(n: Number) = {
+  override def +(n: Number): Number = n match {
     case Integer(i) => Real(d + i)
     case Real(o)    => Real(d + o)
   }
-  override def -(n: Number) = {
+  override def -(n: Number): Number = n match {
     case Integer(i) => Real(d - i)
     case Real(o)    => Real(d - o)
   }
-  override def *(n: Number) = {
+  override def *(n: Number): Number = n match {
     case Integer(i) => Real(d * i)
     case Real(o)    => Real(d * o)
   }
-  override def /(n: Number) = {
+  override def /(n: Number): Number = n match {
     case Integer(i) => Real(d / i)
     case Real(o)    => Real(d / o)
   }
-  override def %(n: Number) = {
+  override def %(n: Number): Number = n match {
     case Integer(i) => Real(d % i)
     case Real(o)    => Real(d % o)
   }
-  override def ^(n: Number) = {
+  override def ^(n: Number): Number = n match {
     case Integer(i) => Real(math.pow(d, i))
     case Real(o)    => Real(math.pow(d, o))
   }
