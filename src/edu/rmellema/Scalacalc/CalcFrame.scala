@@ -1,3 +1,4 @@
+package edu.rmellema.Scalacalc
 import java.awt.BorderLayout
 import java.awt.event.{ActionEvent, ActionListener}
 import javax.swing.{JTextField, JScrollPane, JTextArea, JFrame}

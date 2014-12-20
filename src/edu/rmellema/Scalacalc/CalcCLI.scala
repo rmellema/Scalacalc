@@ -1,3 +1,5 @@
+package edu.rmellema.Scalacalc
+
 object CalcCLI {
   def read(str: String) = {
     io.StdIn.readLine(str) match {

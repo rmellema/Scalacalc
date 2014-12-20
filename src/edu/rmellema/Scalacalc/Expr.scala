@@ -1,3 +1,4 @@
+package edu.rmellema.Scalacalc
 abstract class Expr {
   type Valuation = Map[String, Double]
 

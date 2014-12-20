@@ -1,3 +1,4 @@
+package edu.rmellema.Scalacalc
 import scala.annotation.tailrec
 
 object Parser {

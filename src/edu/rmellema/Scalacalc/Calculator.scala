@@ -1,3 +1,4 @@
+package edu.rmellema.Scalacalc
 class Calculator {
   private var v = Map("e" -> math.E, "pi" -> math.Pi)
 
