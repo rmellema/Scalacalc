@@ -27,7 +27,8 @@ object Parser {
         case "+" => Sum(e, parseT(r._1, r._2))
         case "-" => Sub(e, parseT(r._1, r._2))
         case "=" => e match {
-          case Var(n) => Ass(n, parseT(r._1, r._2))
+          case Var(n)     => Ass(Call(n, Array.empty[Expr]), parseT(r._1, r._2))
+          case Call(n, a) => Ass(Call(n, a), parseT(r._1, r._2))
           case _      => sys.error("Trying to assign to something that is not a variable")
         }
       }

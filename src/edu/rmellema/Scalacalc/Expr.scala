@@ -1,6 +1,7 @@
 package edu.rmellema.Scalacalc
+
 abstract class Expr {
-  type Valuation = Map[String, Number]
+  type Valuation = Map[String, Expr]
 
   def apply(v: Valuation): Number = eval(v)
 
@@ -18,7 +19,9 @@ case class Var(s: String) extends Expr {
   override def toString = s
   override def vars = Array(s)
   override def eval(v: Valuation) = v.get(s) match {
-    case Some(d) => d
+    case Some(d)=> d match {
+      case Val(n) => n
+    }
     case _       => sys.error("Variable '" + s + "' not found in valuation")
   }
 }
@@ -52,8 +55,25 @@ case class Mod(l: Expr, r:Expr) extends Expr {
   override def vars = l.vars.union(r.vars)
   override def eval(v: Valuation) = l.eval(v) % r.eval(v)
 }
-case class Ass(n: String, r:Expr) extends Expr {
+case class Ass(n: Call, r: Expr) extends Expr {
   override def toString = "(" + n + " = " + r.toString+")"
-  override def vars = n +: r.vars
-  override def eval(v: Valuation) = r.eval(v)
+  override def vars = n.vars.union(r.vars)
+  override def eval(v: Valuation) = r(v)
+}
+case class Call(n: String, a: Array[Expr]) extends Expr {
+  override def toString = n +  a.mkString("(", ", ", ")")
+  override def vars: Array[String] = Array.empty[String]
+
+  override def eval(v: Valuation) = v.get(n) match {
+    case Some(d) => d match {
+      case Func(p, e) => e(v ++ p.zip(a))
+    }
+    case _       => sys.error("Variable '" + n + "' not found in valuation")
+  }
+}
+case class Func(p: Array[String], e: Expr) extends Expr {
+  override def toString = e.toString
+  override def vars: Array[String] = p.union(e.vars)
+
+  override def eval(v: Valuation): Number = e(v)
 }
