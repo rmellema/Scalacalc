@@ -43,6 +43,11 @@ case class Div(l: Expr, r:Expr) extends Expr {
   override def vars = l.vars.union(r.vars)
   override def eval(v: Valuation) = l.eval(v) / r.eval(v)
 }
+case class Pow(l: Expr, r: Expr) extends Expr {
+  override def toString = "(" + l.toString + " ^ " + r.toString + ")"
+  override def vars = l.vars.union(r.vars)
+  override def eval(v: Valuation) = math.pow(l.eval(v), r.eval(v))
+}
 case class Mod(l: Expr, r:Expr) extends Expr {
   override def toString = "(" + l.toString + " % " + r.toString + ")"
   override def vars = l.vars.union(r.vars)

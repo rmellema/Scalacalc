@@ -25,6 +25,7 @@ object Parser {
     } else {
       val r = parseF(s.tail)
       s.head match {
+        case "^" => parseT(Pow(e, r._1), r._2)
         case "*" => parseT(Mul(e, r._1), r._2)
         case "/" => parseT(Div(e, r._1), r._2)
         case "%" => parseT(Mod(e, r._1), r._2)

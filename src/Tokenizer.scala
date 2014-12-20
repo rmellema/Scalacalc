@@ -12,7 +12,7 @@ object Tokenizer {
         tokenizeImpl(t.dropWhile(_.isLetter), c +: t.takeWhile(_.isLetter) :: acc)
       } else if (c.isDigit || c == '.') {
         tokenizeImpl(t.dropWhile((c) => c.isDigit || c == '.'), c +: t.takeWhile((c) => c.isDigit || c == '.') :: acc)
-      } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '=') {
+      } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '=' || c == '^') {
         tokenizeImpl(t, c.toString :: acc)
       } else if (c.isSpaceChar) {
         tokenizeImpl(t.dropWhile(_.isSpaceChar), acc)
