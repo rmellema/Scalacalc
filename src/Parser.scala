@@ -50,7 +50,8 @@ object Parser {
       val sub: List[String] = subExpression(t)
       (parse(sub), t.drop(sub.length + 1))
     } else {
-      (Val(0.0), List.empty[String])
+      if (h == "-" & t.head.head.isDigit) (Val(-t.head.toDouble), t.tail)
+      else sys.error("Unexpected token: '" + h + "'")
     }
   }
 
