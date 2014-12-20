@@ -4,6 +4,8 @@ abstract class Number {
   def toInteger : Integer
   def toReal    : Real
 
+  def toString : String
+
   def +(o: Number): Number
   def -(o: Number): Number
   def *(o: Number): Number
@@ -40,6 +42,8 @@ case class Integer(i: scala.Int) extends Number {
 
   override def toInteger = this
   override def toReal    = Real(i.toDouble)
+
+  override def toString  = i.toString
 }
 
 case class Real(d: scala.Double) extends Number {
@@ -69,4 +73,6 @@ case class Real(d: scala.Double) extends Number {
   }
   override def toInteger = Integer(d.toInt)
   override def toReal    = this
+
+  override def toString  = d.toString
 }
