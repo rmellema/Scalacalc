@@ -17,7 +17,7 @@ object CalcCLI {
     try {
       println(calc.evaluate(ln))
     } catch {
-      case e: Exception => println(e.getMessage)
+      case e: Exception => println("Error: " + e.getMessage)
     }
     run(calc)
   }
