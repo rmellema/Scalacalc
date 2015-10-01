@@ -30,6 +30,7 @@ object Parser {
           case Var(n) => Ass(n, parseT(r._1, r._2))
           case _      => sys.error("Trying to assign to something that is not a variable")
         }
+        case t   => sys.error("Unexpected token in string: " + t)
       }
     }
   }

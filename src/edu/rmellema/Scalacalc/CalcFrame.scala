@@ -17,7 +17,7 @@ object CalcFrame extends JFrame with ActionListener {
     try {
       write(calc.evaluate(ln).toString)
     } catch {
-      case e: Exception => write(e.getMessage)
+      case e: Exception => write("Error: " + e.getMessage)
     }
   }
 
