@@ -1,21 +1,21 @@
 package edu.rmellema.Scalacalc
 class Calculator {
-  private var v: Map[String, Expr] = Map("e" -> Val(Real(math.E)), "pi" -> Val(Real(math.Pi)))
+  private var v: Map[String, Value] = Map("e" -> Real(math.E), "pi" -> Real(math.Pi))
 
-  def evaluate(ln: String): Expr = {
-    val res: Expr = Parser parse ln match {
+  def evaluate(ln: String): Value = {
+    val res: Value = Parser parse ln match {
       case Ass(n, e) =>
         if (n.a.isEmpty) {
           val r = e(v)
-          v = v + ((n.n, Val(r)))
-          Val(r)
+          v = v + ((n.n, r))
+          r
         } else {
           val func: Func = Func(n.a.map(_.toString), e)
           v = v + ((n.n, func))
           func
         }
       case e => {
-        Val(e(v))
+        e(v)
       }
     }
     res
