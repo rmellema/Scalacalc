@@ -1,6 +1,7 @@
 package edu.rmellema.Scalacalc
 
-abstract class Number {
+abstract class Number extends Value{
+  override def isNumber = true
   def toInteger  : Integer
   def toReal     : Real
   def toRational : Rational

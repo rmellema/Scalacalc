@@ -1,6 +1,7 @@
 package edu.rmellema.Scalacalc
 
 case class Real(d: scala.Double) extends Number {
+  override def getValue = d
   override def unary_- = Real(-d)
   override def +(t: Number): Number = t match {
     case Integer(i) => Real(d + i)
