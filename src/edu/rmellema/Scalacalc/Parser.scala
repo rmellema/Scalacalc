@@ -15,6 +15,19 @@ object Parser {
   def subExpression(s: List[String]): List[String]
                 = subExpression(0, s, List.empty[String]).reverse
 
+  @tailrec
+  private def split(s: String, w: List[String], acc: List[List[String]]): List[List[String]] = {
+    if (w.isEmpty) acc
+    else {
+      val end = w.dropWhile(_ != s)
+      split(s, if (end.isEmpty) end else end.tail, w.takeWhile(_ != s) :: acc)
+    }
+  }
+
+  def split(s: String, x: List[String]): List[List[String]] = {
+    split(s, x, List.empty[List[String]]).reverse
+  }
+
   def parseT(e: Expr, s: List[String]): Expr = {
     if (s.isEmpty) e
     else {
@@ -27,7 +40,7 @@ object Parser {
         case "+" => Sum(e, parseT(r._1, r._2))
         case "-" => Sub(e, parseT(r._1, r._2))
         case "=" => e match {
-          case Var(n)     => Ass(Call(n, Array.empty[Expr]), parseT(r._1, r._2))
+          case Var(n)     => Ass(Call(n, List.empty[Expr]), parseT(r._1, r._2))
           case Call(n, a) => Ass(Call(n, a), parseT(r._1, r._2))
           case _      => sys.error("Trying to assign to something that is not a variable")
         }
@@ -41,7 +54,14 @@ object Parser {
     val t = s.tail
     if      (h.head.isDigit || h.head == '.')
       (Val(if (h.indexOf('.') >= 0) Real(h.toDouble) else Integer(h.toInt)), t)
-    else if (h.head.isLetter) (Var(h), t)
+    else if (h.head.isLetter) {
+      if (!t.isEmpty && t.head == "(") {
+        val sub = subExpression(t.tail)
+        (Call(h, split(",", sub).map(parse)), t.tail.drop(sub.length + 1))
+      } else {
+        (Var(h), t)
+      }
+    }
     else if (h == "(") {
       val sub: List[String] = subExpression(t)
       (parse(sub), t.drop(sub.length + 1))

@@ -60,20 +60,25 @@ case class Ass(n: Call, r: Expr) extends Expr {
   override def vars = n.vars.union(r.vars)
   override def eval(v: Valuation) = r(v)
 }
-case class Call(n: String, a: Array[Expr]) extends Expr {
+case class Call(n: String, a: List[Expr]) extends Expr {
   override def toString = n +  a.mkString("(", ", ", ")")
   override def vars: Array[String] = Array.empty[String]
 
-  override def eval(v: Valuation) = v.get(n) match {
-    case Some(d) => d match {
-      case Func(p, e) => e(v ++ p.zip(a))
+  override def eval(v: Valuation) = {
+    v.get(n) match {
+      case Some(d) => d match {
+        case Func(p, e) => e(v ++ p.zip(a.map((x: Expr) => Val(x.eval(v)))))
+      }
+      case _       => sys.error("Variable '" + n + "' not found in valuation")
     }
-    case _       => sys.error("Variable '" + n + "' not found in valuation")
   }
 }
-case class Func(p: Array[String], e: Expr) extends Expr {
+case class Func(p: List[String], e: Expr) extends Expr {
   override def toString = e.toString
-  override def vars: Array[String] = p.union(e.vars)
+  override def vars: Array[String] = p.union(e.vars).toArray
 
-  override def eval(v: Valuation): Number = e(v)
+  override def eval(v: Valuation): Number = {
+    println(v)
+    e(v)
+  }
 }
