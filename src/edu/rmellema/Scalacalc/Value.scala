@@ -9,4 +9,5 @@ trait Value {
   def isCallable = false
   def toString: String
   def getValue: Any
+  def getType: String
 }

@@ -3,6 +3,7 @@ package edu.rmellema.Scalacalc
 case class Integer(i: scala.Int) extends Number {
   override def getValue = i
   override def unary_- = Integer(-i)
+  override def getType = "Integer"
 
   override def +(t: Number): Number = t match {
     case Integer(o) => Integer(i + o)

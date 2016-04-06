@@ -2,6 +2,7 @@ package edu.rmellema.Scalacalc
 
 class Rational private(n: Int, d: Int) extends Number {
   override def getValue = toReal.getValue
+  override def getType  = "Rational"
   def copy(nom: Int = this.n, denom: Int = this.d) = Rational(nom, denom)
   override def unary_- : Number = Rational(-n, d)
 

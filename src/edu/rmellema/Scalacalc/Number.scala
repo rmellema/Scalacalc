@@ -2,6 +2,9 @@ package edu.rmellema.Scalacalc
 
 abstract class Number extends Value{
   override def isNumber = true
+
+  def unapply(arg: Value): Boolean = arg.isNumber
+
   def toInteger  : Integer
   def toReal     : Real
   def toRational : Rational
@@ -24,4 +27,10 @@ abstract class Number extends Value{
   def /(o: Number): Number
   def %(o: Number): Number
   def ^(o: Number): Number
+}
+
+object Number {
+  def unapply(arg: Int): Option[Number] = Some(Integer(arg))
+  def unapply(arg: Double): Option[Number] = Some(Real(arg))
+  def unapply(arg: Value): Boolean = arg.isNumber
 }
