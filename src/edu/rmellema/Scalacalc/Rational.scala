@@ -1,6 +1,6 @@
 package edu.rmellema.Scalacalc
 
-abstract case class Rational private(n: Int, d: Int) extends Number {
+class Rational private(n: Int, d: Int) extends Number {
   def copy(nom: Int = this.n, denom: Int = this.d) = Rational(nom, denom)
   override def unary_- : Number = Rational(-n, d)
 
@@ -41,6 +41,9 @@ abstract case class Rational private(n: Int, d: Int) extends Number {
   override def toReal     = Real(n/d)
   override def toRational = this
 
+  def getNominal = n
+  def getDenominal = d
+
   override def toString  =
     (if (n > d) (n/d).toString + " + " else "") +
       (n % d).toString + "/" + d.toString
@@ -58,4 +61,7 @@ object Rational {
     val g = gcd(n, d)
     new Rational(n/g, d/g) {}
   }
+
+  def unapply(arg: Rational): Option[(Int, Int)] =
+    Some((arg.getNominal, arg.getDenominal))
 }

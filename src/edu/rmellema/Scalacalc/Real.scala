@@ -34,7 +34,7 @@ case class Real(d: scala.Double) extends Number {
   }
   override def toInteger  = Integer(d.toInt)
   override def toReal     = this
-  override def toRational = sys.error("Implement this!")
+  override def toRational = sys.error("Cannot convert a real to a double")
 
   override def toString  = d.toString
 }
