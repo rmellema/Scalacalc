@@ -15,3 +15,9 @@ class ExprFunc(param: List[String], body: Expr) extends Function {
     body.eval(param.zip(vs).toMap[String, Value])
 }
 
+class BuiltinFunc(val func: (Value*) => Value) extends Function {
+  override def getValue = func
+  override def toString = "Builtin: " + func.toString()
+
+  override def call(v: Value*) = func(v:_*)
+}
