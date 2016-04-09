@@ -106,6 +106,7 @@ case class Call(n: String, a: List[Expr]) extends Expr {
     v.get(n) match {
       case Some(d) => d match {
         case f: Function => f.call(f.prepArgs(v, a:_*):_*)
+        case _ => sys.error("Trying to call a " + d.getType)
       }
       case _       => sys.error("Variable '" + n + "' not found in valuation")
     }
