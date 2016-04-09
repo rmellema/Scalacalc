@@ -10,7 +10,7 @@ class Calculator {
           v = v + ((n.n, r))
           r
         } else {
-          val func: Func = Func(n.a.map(_.toString), e)
+          val func: Function = new ExprFunc(n.a.map(_.toString), e)
           v = v + ((n.n, func))
           func
         }

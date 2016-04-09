@@ -105,19 +105,10 @@ case class Call(n: String, a: List[Expr]) extends Expr {
   override def eval(v: Valuation) = {
     v.get(n) match {
       case Some(d) => d match {
-        case d: Func => d.call(a.map(x => x.eval(v)):_*)
+        case f: Function => f.call(f.prepArgs(v, a:_*):_*)
       }
       case _       => sys.error("Variable '" + n + "' not found in valuation")
     }
   }
 }
-case class Func(p: List[String], e: Expr) extends Value {
-  override def getValue = e
-  override def getType  = "Function"
-  override def toString = p.mkString("(", ", ", ")") + " = " + e.toString
 
-  def call(v: Value*): Value = {
-    println(v)
-    e(p.zip(v).toMap[String, Value])
-  }
-}
