@@ -72,7 +72,7 @@ object Parser {
   }
 
   def parse(s: List[String]): Expr = {
-    if (s.isEmpty) Val(Integer(0))
+    if (s.isEmpty) Val(Nil)
     else {
       val l = parseF(s)
       parseT(l._1, l._2)
