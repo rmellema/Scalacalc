@@ -40,7 +40,7 @@ class Rational private(n: Int, d: Int) extends Number {
     sys.error("Can't take the % of a Rational")
 
   override def toInteger  = toReal.toInteger
-  override def toReal     = Real(n/d)
+  override def toReal     = Real((n + 0.0)/d)
   override def toRational = this
 
   def getNominal = n
