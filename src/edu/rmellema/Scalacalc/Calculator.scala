@@ -3,6 +3,7 @@ class Calculator {
   private var v: Map[String, Value] =
     Map("e"   -> Real(math.E),
         "pi"  -> Real(math.Pi),
+        "nil" -> Nil,
         "abs" -> new BuiltinFunc(StdLib.abs),
         "ceil" -> new BuiltinFunc(StdLib.ceil),
         "floor" -> new BuiltinFunc(StdLib.floor),
