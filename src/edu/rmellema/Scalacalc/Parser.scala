@@ -49,13 +49,19 @@ object Parser {
     }
   }
 
+  private def parseNum(num: String): Number =
+    if (num.indexOf('.') >= 0)
+      Real(num.toDouble)
+    else
+      Integer(num.toInt)
+
   def parseF(s: List[String]): (Expr, List[String]) = {
     val h = s.head
     val t = s.tail
-    if      (h.head.isDigit || h.head == '.')
-      (Val(if (h.indexOf('.') >= 0) Real(h.toDouble) else Integer(h.toInt)), t)
+    if (h.head.isDigit || h.head == '.')
+      (Val(parseNum(h)), t)
     else if (h.head.isLetter) {
-      if (!t.isEmpty && t.head == "(") {
+      if (t.nonEmpty && t.head == "(") {
         val sub = subExpression(t.tail)
         (Call(h, split(",", sub).map(parse)), t.tail.drop(sub.length + 1))
       } else {
@@ -66,7 +72,7 @@ object Parser {
       val sub: List[String] = subExpression(t)
       (parse(sub), t.drop(sub.length + 1))
     } else {
-      if (h == "-" & t.head.head.isDigit) (Val(-Real(t.head.toDouble)), t.tail)
+      if (h == "-" & t.head.head.isDigit) (Val(-parseNum(t.head)), t.tail)
       else sys.error("Unexpected token: '" + h + "'")
     }
   }
