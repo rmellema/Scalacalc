@@ -115,5 +115,34 @@ object StdLib {
     case _ => noFunc("toRadians", args)
   }
 
+  def add(args: Value*): Value = args match {
+    case ns: Seq[Number] => ns.reduce((x, y) => x + y)
+    case _ => noFunc("+", args)
+  }
+
+  def sub(args: Value*): Value = args match {
+    case ns: Seq[Number] => ns.reduce((x, y) => x - y)
+    case _ => noFunc("-", args)
+  }
+
+  def mul(args: Value*): Value = args match {
+    case ns: Seq[Number] => ns.reduce((x, y) => x * y)
+    case _ => noFunc("*", args)
+  }
+
+  def div(args: Value*): Value = args match {
+    case ns: Seq[Number] => ns.reduce((x, y) => x / y)
+    case _ => noFunc("/", args)
+  }
+
+  def pow(args: Value*): Value = args match {
+    case ns: Seq[Number] => ns.reduce((x, y) => x ^ y)
+    case _ => noFunc("^", args)
+  }
+
+  def mod(args: Value*): Value = args match {
+    case ns: Seq[Number] => ns.reduce((x, y) => x % y)
+    case _ => noFunc("%", args)
+  }
 
 }

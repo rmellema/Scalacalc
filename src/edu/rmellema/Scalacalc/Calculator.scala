@@ -22,7 +22,13 @@ class Calculator {
         "tanh" -> new BuiltinFunc(StdLib.tanh),
         "toDegrees" -> new BuiltinFunc(StdLib.toDegrees),
         "toRadians" -> new BuiltinFunc(StdLib.toRadians),
-        "log" -> new BuiltinFunc(StdLib.log))
+        "log" -> new BuiltinFunc(StdLib.log),
+        "+" -> new BuiltinFunc(StdLib.add),
+      "-" -> new BuiltinFunc(StdLib.sub),
+      "*" -> new BuiltinFunc(StdLib.mul),
+      "/" -> new BuiltinFunc(StdLib.div),
+      "^" -> new BuiltinFunc(StdLib.pow),
+      "%" -> new BuiltinFunc(StdLib.mod) )
 
   def evaluate(ln: String): Value = {
     val res: Value = Parser parse ln match {

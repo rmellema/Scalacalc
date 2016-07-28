@@ -27,71 +27,23 @@ case class Var(s: String) extends Expr with Value {
     case _   => sys.error("Variable '" + s + "' not found in valuation")
   }
 }
-case class Sum(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + l.toString + " + " + r.toString + ")"
-  override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = l.eval(v) match {
-    case lv: Number => r.eval(v) match {
-      case rv: Number => lv + rv
-      case _ => sys.error("Trying to add a number to a non number")
-    }
-    case lv => sys.error("Trying to add a non number: " + lv.getType)
-  }
+object Sum {
+  def apply(l: Expr, r: Expr) = Call("+", List(l, r))
 }
-case class Sub(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + l.toString + " - " + r.toString + ")"
-  override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = l.eval(v) match {
-    case lv: Number => r.eval(v) match {
-      case rv: Number => lv - rv
-      case _ => sys.error("Trying to subtract a number to a non number")
-    }
-    case _ => sys.error("Trying to subtract a non number")
-  }
+object Sub {
+  def apply(l: Expr, r:Expr) = Call("-", List(l,r))
 }
-case class Mul(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + l.toString + " * " + r.toString + ")"
-  override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = l.eval(v) match {
-    case lv: Number => r.eval(v) match {
-      case rv: Number => lv * rv
-      case _ => sys.error("Trying to multiply a number to a non number")
-    }
-    case _ => sys.error("Trying to multiply a non number")
-  }
+object Mul {
+  def apply(l: Expr, r:Expr) = Call("*", List(l, r))
 }
-case class Div(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + l.toString + " / " + r.toString + ")"
-  override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = l.eval(v) match {
-    case lv: Number => r.eval(v) match {
-      case rv: Number => lv / rv
-      case _ => sys.error("Trying to divide a number to a non number")
-    }
-    case _ => sys.error("Trying to divide a non number")
-  }
+object Div {
+  def apply(l: Expr, r:Expr) = Call("/", List(l, r))
 }
-case class Pow(l: Expr, r: Expr) extends Expr {
-  override def toString = "(" + l.toString + " ^ " + r.toString + ")"
-  override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = l.eval(v) match {
-    case lv: Number => r.eval(v) match {
-      case rv: Number => lv ^ rv
-      case _ => sys.error("Trying to take the power of a number to a non number")
-    }
-    case _ => sys.error("Trying to take the power of a non number")
-  }
+object Pow {
+  def apply(l: Expr, r: Expr) = Call("^", List(l,r))
 }
-case class Mod(l: Expr, r:Expr) extends Expr {
-  override def toString = "(" + l.toString + " % " + r.toString + ")"
-  override def vars = l.vars.union(r.vars)
-  override def eval(v: Valuation) = l.eval(v) match {
-    case lv: Number => r.eval(v) match {
-      case rv: Number => lv % rv
-      case _ => sys.error("Trying to modulo a number to a non number")
-    }
-    case _ => sys.error("Trying to modulo a non number: " + l.getClass.toString)
-  }
+object Mod {
+  def apply(l: Expr, r:Expr) = Call("%", List(l,r))
 }
 case class Ass(n: Call, r: Expr) extends Expr {
   override def toString = "(" + n + " = " + r.toString+")"
