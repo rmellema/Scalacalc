@@ -45,7 +45,7 @@ case class Integer(i: scala.Int) extends Number {
 
   override def toReal = Real(i.toDouble)
 
-  override def toRational = Rational(i, 1)
+  override def toRational = Rational.fromInteger(i)
 
   override def toString = i.toString
 }

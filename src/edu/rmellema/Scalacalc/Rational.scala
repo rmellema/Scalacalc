@@ -59,9 +59,12 @@ object Rational {
     else gcd(y % x, x)
   }
 
+  def fromInteger(n: Int) = new Rational(n, 1)
+
   def apply(n: Int, d: Int) = {
     val g = gcd(n, d)
-    new Rational(n/g, d/g) {}
+    if (g == d) Integer(n/d)
+    else new Rational(n/g, d/g) {}
   }
 
   def unapply(arg: Rational): Option[(Int, Int)] =
