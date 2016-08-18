@@ -115,6 +115,7 @@ object StdLib {
     case _ => noFunc("toRadians", args)
   }
 
+  // Binary operators
   def add(args: Value*): Value = args match {
     case ns: Seq[Number] => ns.reduce((x, y) => x + y)
     case _ => noFunc("+", args)

@@ -1,8 +1,6 @@
 package edu.rmellema.Scalacalc
 
 abstract class Expr {
-  type Valuation = Map[String, Value]
-
   def apply(v: Valuation): Value = eval(v)
 
   def vars: Array[String]
@@ -52,7 +50,7 @@ case class Ass(n: Call, r: Expr) extends Expr {
 }
 case class Call(n: String, a: List[Expr]) extends Expr {
   override def toString = n +  a.mkString("(", ", ", ")")
-  override def vars: Array[String] = Array.empty[String]
+  override def vars: Array[String] = Array(n) ++ a.flatMap(_.vars).distinct
 
   override def eval(v: Valuation) = {
     v.get(n) match {
