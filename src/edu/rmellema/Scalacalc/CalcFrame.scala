@@ -36,8 +36,6 @@ object CalcFrame extends JFrame with ActionListener {
   }
 
   def main(args: Array[String]): Unit = {
-    println("Started running")
     initialize()
-    println("Finished GUI")
   }
 }
