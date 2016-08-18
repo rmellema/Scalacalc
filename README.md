@@ -8,11 +8,11 @@ functions with the same name.
 Example:
 ```
 > 4 * 5
-20.0
+20
 > x = 2/4
-0.5
+1/2
 > x * 7
-3.5
+3 + 1/2
 > log(2, 8)
 3
 > square(x) = x * x
